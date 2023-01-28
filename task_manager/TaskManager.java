@@ -42,11 +42,11 @@ public class TaskManager extends Thread {
         LocalTime localTime = LocalTime.now();
         try {
             LocalTime arrival = task.getLocalTime();
-            int convertedArrivalTime = arrival.getHour()*60*60 + arrival.getMinute()*60 + arrival.getSecond();
-            convertedArrivalTime *= 1e3;
-            int convertedCurrentTime = localTime.getHour()*60*60 + localTime.getMinute()*60 + localTime.getSecond();
-            convertedCurrentTime *= 1e3;
-            int timeDiff = convertedArrivalTime-convertedCurrentTime;
+            long convertedArrivalTime = arrival.toNanoOfDay();
+            long convertedCurrentTime = localTime.toNanoOfDay();
+            long timeDiff = convertedArrivalTime-convertedCurrentTime;
+
+            System.out.println(convertedArrivalTime+", "+convertedCurrentTime+" = "+timeDiff);
             if(timeDiff<0)
                 System.out.println("Event Closed");
             else if(timeDiff==0) {
@@ -55,7 +55,7 @@ public class TaskManager extends Thread {
                     Desktop.getDesktop().browse(new URI(task.getLink()));
             }
             else {
-                Thread.sleep(timeDiff);
+                Thread.sleep((long)(timeDiff*1e-6));
                 // Execute task
                 if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE))
                     Desktop.getDesktop().browse(new URI(task.getLink()));

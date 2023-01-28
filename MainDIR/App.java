@@ -22,10 +22,10 @@ public class App {
 
          // Following is the schedule
          new TaskManager("saturday 2:30 sub Physics", 
-            new Task("meet.google.com/msk-daxs-bmk", 2, 30, 0)
+            new Task("meet.google.com/msk-daxs-bmk", 14, 30, 0)
          );
          new TaskManager("saturday 3:00 sub Mathematics", 
-            new Task("meet.google.com/msk-daxs-bmk", 3, 30, 0)
+            new Task("meet.google.com/msk-daxs-bmk", 15, 30, 0)
          );
     }
 }
